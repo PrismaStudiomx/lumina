@@ -119,13 +119,13 @@ export function HeroScene() {
             transition={{ delay: 0.9, duration: 0.9, ease: EASE_CINEMATIC }}
             className="mt-10 flex flex-col gap-3 sm:flex-row"
           >
-            <EditorialButton href="#escenas">
-              Explorar la experiencia
-            </EditorialButton>
+            <EditorialButton scrollToId="galeria">
+  Explorar la experiencia
+</EditorialButton>
 
-            <EditorialButton href="#fecha" variant="ghost">
-              Consultar fecha
-            </EditorialButton>
+<EditorialButton scrollToId="fecha" variant="ghost">
+  Consultar fecha
+</EditorialButton>
           </motion.div>
         </motion.div>
 

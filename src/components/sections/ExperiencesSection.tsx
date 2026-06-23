@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { EASE_CINEMATIC, fadeUp } from "@/lib/animation";
+import { smoothScrollTo } from "@/lib/smoothScrollTo";
 
 const experiences = [
   {
@@ -240,8 +241,9 @@ function ExperienceDetail({
             </ul>
           </div>
 
-          <motion.a
-            href="#fecha"
+          <motion.button
+  type="button"
+  onClick={() => smoothScrollTo("fecha")}
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.97, y: 0 }}
             transition={{ duration: 0.45, ease: EASE_CINEMATIC }}
@@ -256,7 +258,7 @@ function ExperienceDetail({
               aria-hidden="true"
               className="absolute bottom-2 left-6 right-6 h-px origin-left scale-x-0 bg-[#11100E] opacity-45 transition-transform duration-500 ease-out group-hover:scale-x-100"
             />
-          </motion.a>
+          </motion.button>
         </div>
       </div>
     </div>

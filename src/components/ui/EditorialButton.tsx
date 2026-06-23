@@ -22,6 +22,7 @@ export function EditorialButton({
   scrollToId,
 }: EditorialButtonProps) {
   const isPrimary = variant === "primary";
+  const internalTarget = scrollToId ?? (href.startsWith("#") ? href : null);
 
   const sharedClassName = cn(
     "group relative inline-flex min-h-[54px] items-center justify-center overflow-hidden rounded-full px-7 py-4 text-[0.74rem] font-bold uppercase tracking-[0.18em] transition-all duration-500 sm:min-w-[220px]",
@@ -49,11 +50,11 @@ export function EditorialButton({
     </>
   );
 
-  if (scrollToId) {
+  if (internalTarget) {
     return (
       <motion.button
         type="button"
-        onClick={() => smoothScrollTo(scrollToId)}
+        onClick={() => smoothScrollTo(internalTarget)}
         whileHover={{ y: -2 }}
         whileTap={{ scale: 0.97, y: 0 }}
         transition={{ duration: 0.45, ease: EASE_CINEMATIC }}
@@ -70,12 +71,6 @@ export function EditorialButton({
   return (
     <motion.a
       href={href}
-      onClick={(event) => {
-        if (href.startsWith("#")) {
-          event.preventDefault();
-          smoothScrollTo(href);
-        }
-      }}
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.97, y: 0 }}
       transition={{ duration: 0.45, ease: EASE_CINEMATIC }}
