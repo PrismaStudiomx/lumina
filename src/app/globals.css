@@ -227,3 +227,16 @@ section[id] {
     scroll-margin-top: 88px;
   }
 }
+section[id] {
+  scroll-margin-top: 112px;
+}
+
+@media (max-width: 768px) {
+  section[id] {
+    scroll-margin-top: 88px;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}

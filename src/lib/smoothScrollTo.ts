@@ -16,24 +16,29 @@ export function smoothScrollTo(id: string) {
   const targetY =
     target.getBoundingClientRect().top + window.scrollY - offset;
 
-  const distance = targetY - startY;
+  const maxScroll =
+    document.documentElement.scrollHeight - window.innerHeight;
+
+  const finalY = Math.max(0, Math.min(targetY, maxScroll));
+  const distance = finalY - startY;
+
   let startTime: number | null = null;
 
-  const animateScroll = (currentTime: number) => {
+  function animate(currentTime: number) {
     if (startTime === null) startTime = currentTime;
 
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    const easedProgress = easeOutCubic(progress);
+    const eased = easeOutCubic(progress);
 
-    window.scrollTo(0, startY + distance * easedProgress);
+    window.scrollTo(0, startY + distance * eased);
 
     if (progress < 1) {
-      window.requestAnimationFrame(animateScroll);
+      window.requestAnimationFrame(animate);
     } else {
       window.history.replaceState(null, "", `#${cleanId}`);
     }
-  };
+  }
 
-  window.requestAnimationFrame(animateScroll);
+  window.requestAnimationFrame(animate);
 }

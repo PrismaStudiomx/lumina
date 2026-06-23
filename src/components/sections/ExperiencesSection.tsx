@@ -477,9 +477,9 @@ export function ExperiencesSection() {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeExperience.key}
-                  initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -12, filter: "blur(8px)" }}
+                  initial={{ opacity: 0, y: 16 }}
+animate={{ opacity: 1, y: 0 }}
+exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.65, ease: EASE_CINEMATIC }}
                 >
                   <ExperienceVisual variant={activeExperience.visual} />
