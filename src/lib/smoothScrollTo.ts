@@ -1,26 +1,49 @@
+let activeScrollAnimation: number | null = null;
+
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
 export function smoothScrollTo(id: string) {
   if (typeof window === "undefined") return;
 
-  const cleanId = id.replace("#", "");
-  const target = document.getElementById(cleanId);
+  if (activeScrollAnimation !== null) {
+    window.cancelAnimationFrame(activeScrollAnimation);
+    activeScrollAnimation = null;
+  }
 
-  if (!target) return;
+  const cleanId = id.replace("#", "");
+  const isHero = cleanId === "inicio";
+
+  const target = isHero ? null : document.getElementById(cleanId);
+
+  if (!isHero && !target) return;
 
   const isMobile = window.innerWidth < 768;
   const offset = isMobile ? 88 : 112;
-  const duration = 850;
+  const duration = isHero ? 780 : 850;
 
   const startY = window.scrollY;
-  const targetY =
-    target.getBoundingClientRect().top + window.scrollY - offset;
+
+  const rawTargetY = isHero
+    ? 0
+    : target!.getBoundingClientRect().top + window.scrollY - offset;
 
   const maxScroll =
     document.documentElement.scrollHeight - window.innerHeight;
 
-  const finalY = Math.max(0, Math.min(targetY, maxScroll));
+  const finalY = Math.max(0, Math.min(rawTargetY, maxScroll));
   const distance = finalY - startY;
+
+  if (Math.abs(distance) < 4) {
+    window.scrollTo(0, finalY);
+
+    if (isHero) {
+      window.history.replaceState(null, "", window.location.pathname);
+    } else {
+      window.history.replaceState(null, "", `#${cleanId}`);
+    }
+
+    return;
+  }
 
   let startTime: number | null = null;
 
@@ -34,11 +57,17 @@ export function smoothScrollTo(id: string) {
     window.scrollTo(0, startY + distance * eased);
 
     if (progress < 1) {
-      window.requestAnimationFrame(animate);
+      activeScrollAnimation = window.requestAnimationFrame(animate);
     } else {
-      window.history.replaceState(null, "", `#${cleanId}`);
+      activeScrollAnimation = null;
+
+      if (isHero) {
+        window.history.replaceState(null, "", window.location.pathname);
+      } else {
+        window.history.replaceState(null, "", `#${cleanId}`);
+      }
     }
   }
 
-  window.requestAnimationFrame(animate);
+  activeScrollAnimation = window.requestAnimationFrame(animate);
 }
