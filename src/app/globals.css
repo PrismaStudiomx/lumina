@@ -1,26 +1,229 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #11100e;
+  --plum: #2a1724;
+  --grape: #4a2638;
+  --clay: #b46a5a;
+  --smoked-champagne: #d8bfa6;
+  --candle: #f3e8da;
+  --shadow-green: #26352d;
+
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--ink);
+  color: var(--candle);
+  scroll-behavior: auto;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(74, 38, 56, 0.45), transparent 32rem),
+    radial-gradient(circle at 90% 20%, rgba(180, 106, 90, 0.16), transparent 28rem),
+    var(--ink);
+  color: var(--candle);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--clay);
+  color: var(--ink);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+.font-sans-custom {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.text-candle {
+  color: var(--candle);
+}
+
+.text-champagne {
+  color: var(--smoked-champagne);
+}
+
+.text-clay {
+  color: var(--clay);
+}
+
+.bg-ink {
+  background-color: var(--ink);
+}
+
+.bg-plum {
+  background-color: var(--plum);
+}
+
+.bg-grape {
+  background-color: var(--grape);
+}
+
+.bg-shadow-green {
+  background-color: var(--shadow-green);
+}
+
+.border-champagne-soft {
+  border-color: rgba(216, 191, 166, 0.22);
+}
+
+.grain-texture {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(243, 232, 218, 0.18) 0 1px, transparent 1px),
+    radial-gradient(circle at 80% 40%, rgba(243, 232, 218, 0.12) 0 1px, transparent 1px),
+    radial-gradient(circle at 40% 80%, rgba(243, 232, 218, 0.1) 0 1px, transparent 1px);
+  background-size: 7px 7px, 11px 11px, 13px 13px;
+}
+
+.scene-card {
+  position: absolute;
+  overflow: hidden;
+  border: 1px solid rgba(216, 191, 166, 0.22);
+  background-size: cover;
+  background-position: center;
+  box-shadow:
+    0 40px 140px rgba(0, 0, 0, 0.45),
+    inset 0 0 80px rgba(17, 16, 14, 0.4);
+}
+
+.scene-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, transparent, rgba(17, 16, 14, 0.34)),
+    radial-gradient(circle at 42% 18%, rgba(243, 232, 218, 0.14), transparent 9rem),
+    radial-gradient(circle at 54% 52%, rgba(180, 106, 90, 0.18), transparent 12rem);
+  pointer-events: none;
+}
+
+.scene-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(243, 232, 218, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(243, 232, 218, 0.035) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.scene-card-main {
+  right: 7vw;
+  top: 11vh;
+  width: min(30vw, 430px);
+  height: 64vh;
+  border-radius: 999px 999px 2rem 2rem;
+  background:
+    linear-gradient(115deg, rgba(243, 232, 218, 0.08), transparent 28%),
+    radial-gradient(circle at 50% 16%, rgba(243, 232, 218, 0.26), transparent 8rem),
+    radial-gradient(circle at 45% 48%, rgba(180, 106, 90, 0.32), transparent 12rem),
+    linear-gradient(145deg, #2a1724, #11100e 58%, #26352d);
+}
+
+.scene-card-secondary {
+  right: 31vw;
+  top: 48vh;
+  width: 18vw;
+  min-width: 220px;
+  height: 26vh;
+  border-radius: 1.4rem;
+  background:
+    linear-gradient(125deg, rgba(243, 232, 218, 0.08), transparent 34%),
+    radial-gradient(circle at 38% 30%, rgba(216, 191, 166, 0.22), transparent 7rem),
+    linear-gradient(135deg, #4a2638, #11100e);
+}
+
+.scene-card-tertiary {
+  right: 3vw;
+  top: 64vh;
+  width: 16vw;
+  min-width: 180px;
+  height: 20vh;
+  border-radius: 999px;
+  background:
+    linear-gradient(125deg, rgba(243, 232, 218, 0.07), transparent 30%),
+    radial-gradient(circle at 52% 44%, rgba(180, 106, 90, 0.28), transparent 6rem),
+    linear-gradient(135deg, #26352d, #11100e);
+}
+
+.scene-soft-line {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(216, 191, 166, 0.42),
+    transparent
+  );
+}
+
+@media (max-width: 1024px) {
+  .scene-card-main {
+    right: -12vw;
+    top: 16vh;
+    width: 58vw;
+    height: 54vh;
+    opacity: 0.55;
+  }
+
+  .scene-card-secondary {
+    right: 42vw;
+    top: 58vh;
+    width: 34vw;
+    opacity: 0.46;
+  }
+
+  .scene-card-tertiary {
+    right: 8vw;
+    top: 70vh;
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 720px) {
+  .scene-card-main {
+    right: -34vw;
+    top: 13vh;
+    width: 92vw;
+    height: 52vh;
+    opacity: 0.34;
+  }
+
+  .scene-card-secondary,
+  .scene-card-tertiary {
+    display: none;
+  }
+}
+section[id] {
+  scroll-margin-top: 112px;
+}
+
+@media (max-width: 768px) {
+  section[id] {
+    scroll-margin-top: 88px;
+  }
 }
