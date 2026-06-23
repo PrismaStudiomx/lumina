@@ -2,6 +2,16 @@ let activeScrollAnimation: number | null = null;
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
+function getScrollDuration(distance: number, isHero: boolean) {
+  const absoluteDistance = Math.abs(distance);
+
+  if (isHero && absoluteDistance > 2600) return 620;
+  if (absoluteDistance > 2600) return 720;
+  if (absoluteDistance > 1400) return 760;
+
+  return 850;
+}
+
 export function smoothScrollTo(id: string) {
   if (typeof window === "undefined") return;
 
@@ -19,7 +29,6 @@ export function smoothScrollTo(id: string) {
 
   const isMobile = window.innerWidth < 768;
   const offset = isMobile ? 88 : 112;
-  const duration = isHero ? 780 : 850;
 
   const startY = window.scrollY;
 
@@ -32,6 +41,7 @@ export function smoothScrollTo(id: string) {
 
   const finalY = Math.max(0, Math.min(rawTargetY, maxScroll));
   const distance = finalY - startY;
+  const duration = getScrollDuration(distance, isHero);
 
   if (Math.abs(distance) < 4) {
     window.scrollTo(0, finalY);
@@ -44,6 +54,8 @@ export function smoothScrollTo(id: string) {
 
     return;
   }
+
+  document.documentElement.classList.add("is-programmatic-scrolling");
 
   let startTime: number | null = null;
 
@@ -61,11 +73,19 @@ export function smoothScrollTo(id: string) {
     } else {
       activeScrollAnimation = null;
 
+      window.scrollTo(0, finalY);
+
       if (isHero) {
         window.history.replaceState(null, "", window.location.pathname);
       } else {
         window.history.replaceState(null, "", `#${cleanId}`);
       }
+
+      window.setTimeout(() => {
+        document.documentElement.classList.remove(
+          "is-programmatic-scrolling"
+        );
+      }, 120);
     }
   }
 
