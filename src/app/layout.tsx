@@ -20,9 +20,72 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Lúmina — Experiencias & Memoria Visual",
+  metadataBase: new URL("https://lumina-sigma-orcin.vercel.app/"),
+
+  title: {
+    default: "Lúmina — Experiencias & Memoria Visual",
+    template: "%s | Lúmina",
+  },
+
   description:
-    "Fotografía, espacios y dirección visual para celebraciones con atmósfera propia.",
+    "Diseñamos escenas para celebraciones privadas, íntimas y producidas con intención. Fotografía, espacios y dirección visual para experiencias con atmósfera propia.",
+
+  keywords: [
+    "experiencias visuales",
+    "fotografía editorial",
+    "eventos privados",
+    "wedding planner",
+    "dirección visual",
+    "celebraciones privadas",
+    "producción de eventos",
+    "fotografía de eventos",
+    "Guadalajara",
+    "Lúmina",
+  ],
+
+  authors: [
+    {
+      name: "Lúmina",
+    },
+  ],
+
+  creator: "Lúmina",
+  publisher: "Lúmina",
+
+  openGraph: {
+    title: "Lúmina — Experiencias & Memoria Visual",
+    description:
+      "No vendemos eventos. Diseñamos escenas que se recuerdan.",
+    url: "https://lumina-sigma-orcin.vercel.app/",
+    siteName: "Lúmina",
+    locale: "es_MX",
+    type: "website",
+    images: [
+      {
+        url: "/images/og/lumina-og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Lúmina — Experiencias & Memoria Visual",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Lúmina — Experiencias & Memoria Visual",
+    description:
+      "Diseñamos escenas para celebraciones privadas, íntimas y producidas con intención.",
+    images: ["/images/og/lumina-og.jpg"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 type RootLayoutProps = {
